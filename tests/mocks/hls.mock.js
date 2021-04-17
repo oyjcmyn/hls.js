@@ -1,5 +1,7 @@
 import Hls from '../../src/hls';
 
+const sinon = require('sinon');
+
 /**
  * All public methods of Hls instance
  */
@@ -17,7 +19,6 @@ const publicMethods = [
 ];
 
 export default class HlsMock {
-
   // TODO: static properties
 
   constructor(config) {
@@ -31,6 +32,11 @@ export default class HlsMock {
     });
   }
 
+  getEventData(n) {
+    const event = this.trigger.getCall(n).args;
+    return { name: event[0], payload: event[1] };
+  }
+
   /**
    * Reset all spies
    */
@@ -39,4 +45,4 @@ export default class HlsMock {
       this[methodName].reset();
     });
   }
-};
+}
